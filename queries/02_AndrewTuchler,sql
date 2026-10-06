@@ -1,0 +1,31 @@
+-- Q: Which individual host, a person rather than a company, has the most listings?
+SELECT
+  host_name,
+  host_since,
+  COUNT(*) AS n_listings
+FROM listings
+WHERE host_name IS NOT NULL
+  AND host_name <> ''
+  AND LOWER(host_name) NOT LIKE '%llc%'
+  AND LOWER(host_name) NOT LIKE '%inc%'
+  AND LOWER(host_name) NOT LIKE '%corp%'
+  AND LOWER(host_name) NOT LIKE '%company%'
+  AND LOWER(host_name) NOT LIKE '%group%'
+  AND LOWER(host_name) NOT LIKE '%properties%'
+  AND LOWER(host_name) NOT LIKE '%property%'
+  AND LOWER(host_name) NOT LIKE '%rental%'
+  AND LOWER(host_name) NOT LIKE '%realty%'
+  AND LOWER(host_name) NOT LIKE '%management%'
+  AND LOWER(host_name) NOT LIKE '%hospitality%'
+  AND LOWER(host_name) NOT LIKE '%stays%'
+  AND LOWER(host_name) NOT LIKE '%suites%'
+  AND LOWER(host_name) NOT LIKE '%homes%'
+  AND LOWER(host_name) NOT LIKE '%apartment%'
+  AND LOWER(host_name) NOT LIKE '%living%'
+  AND LOWER(host_name) NOT LIKE '%hotel%'
+  AND LOWER(host_name) NOT LIKE '%vacation%'
+  AND host_name NOT LIKE '%&%'
+GROUP BY host_name, host_since
+ORDER BY n_listings DESC
+LIMIT 10;
+-- Verdict: Do Not Trust. Returns the top user as 'BlueGround' which is a company, not a person.
